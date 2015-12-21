@@ -64,8 +64,6 @@ class AssetStoreClient(object):
             result = self.GetSimpleData({'url':self.PUBLISHER_OVERVIEW_JSON_URL});
             self.AssertHttpCode('Fetching publisher data failed, error code {code}', result.status_code)
             publisherInfoObject = result.json()
-            # print "*********************************************"
-            # print publisherInfoObject
             self.publisherInfoOverview = PublisherInfo(publisherInfoObject)
 
         return self.publisherInfoOverview
@@ -319,8 +317,6 @@ class RevenueInfo (ParsedData):
 
 class InvoiceInfo (ParsedData):
     def __init__(self, data):
-        print "*************"
-        print data
         self.data = {
             'id':data[0],
             'packageName':data[1],
