@@ -64,6 +64,8 @@ class AssetStoreClient(object):
             result = self.GetSimpleData({'url':self.PUBLISHER_OVERVIEW_JSON_URL});
             self.AssertHttpCode('Fetching publisher data failed, error code {code}', result.status_code)
             publisherInfoObject = result.json()
+            # print "*********************************************"
+            # print publisherInfoObject
             self.publisherInfoOverview = PublisherInfo(publisherInfoObject)
 
         return self.publisherInfoOverview
@@ -240,7 +242,7 @@ class PublisherInfo(object):
                     'rating':int(data['rating']['average']),
                     'ratingCount':int(data['rating']['count']),
                     'payoutCut':data['payout_cut'],
-                    'publisherUrl':data['long_url'],
+                    # 'publisherUrl':data['long_url'],
                     'publisherShortUrl':data['short_url'],
                     'siteUrl':data['url'],
                     'supportUrl':data['support_url'],
@@ -317,10 +319,12 @@ class RevenueInfo (ParsedData):
 
 class InvoiceInfo (ParsedData):
     def __init__(self, data):
+        print "*************"
+        print data
         self.data = {
             'id':data[0],
             'packageName':data[1],
-            'date':self.ParseDate(data[2]),
+            'date':self.ParseDate(data[4]),
             'isRefunded':data[3] == 'Yes',
         }
     def GetInvoiceNumber(self):
@@ -340,8 +344,8 @@ class SalesPeriod(object):
     def GetMonth(self):
         return self.month
     def GetDate(self):
-    	import datetime, time
-    	return time.mktime(datetime.datetime(self.year, self.month, 1, 0, 0, 0, 0).timetuple())
+        import datetime, time
+        return time.mktime(datetime.datetime(self.year, self.month, 1, 0, 0, 0, 0).timetuple())
         
 class PeriodSalesInfo(object):
     def __init__(self, packageSales, payoutCut = 0.7):
@@ -420,7 +424,7 @@ class PackageDownloadsInfo(object):
             'firstDownload':self.ParseDate(data[2]) if data[2] != None else None,
             'lastDownload':self.ParseDate(data[3]) if data[3] != None else None,
             'shortUrl':data['shortUrl'],
-        	}
+            }
     def GetPackageName(self):
         return self.data['name']
     def GetQuantity(self):
@@ -466,7 +470,7 @@ class PackageVersionInfo(ParsedData):
             'version': data['version_name'],
             'categoryId': int(data['category_id']),
             'releaseNotes': data['publishnotes']
-        	}
+            }
     def GetName(self):
         return self.data['name']
     def GetStatus(self):
