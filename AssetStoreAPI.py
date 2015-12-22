@@ -62,6 +62,7 @@ class AssetStoreClient(object):
 
         if self.publisherInfoOverview == None:
             result = self.GetSimpleData({'url':self.PUBLISHER_OVERVIEW_JSON_URL});
+            print result.text
             self.AssertHttpCode('Fetching publisher data failed, error code {code}', result.status_code)
             publisherInfoObject = result.json()
             self.publisherInfoOverview = PublisherInfo(publisherInfoObject)

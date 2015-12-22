@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block body %}
+	{% include 'menu.html' %}
+	<h1>Verify invoice</h1>
+	<form action='/admin' method='post'>
+		Enter comma separated invoice numbers: <input type="text" name="invoice_numbers">
+		<input type="submit">
+	</form>
+	<table>
+		<tr><th>Invoice #</th><th>Package</th><th>Purchase Date</th><th>Purchase Count</th><th>Purchase Cost</th><th>Status?</th></tr>
+		{% for product in products %}
+		<tr>
+			<td>{{product.GetInvoiceNumber()}}</td>
+			<td>{{product.GetPackageName()}}</td>
+			<td>{{product.GetPurchaseDate()|date_format}}</td>
+			<td>{{product.GetPurchaseCount()}}</td>
+			<td>{{product.GetPurchaseCost()}}</td>
+			<td>{{product.GetStatusCode()}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+{% endblock %}
