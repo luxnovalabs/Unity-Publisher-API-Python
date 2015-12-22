@@ -87,6 +87,6 @@ def find_purchased_item(invoice_item):
 
 if __name__ == "__main__":
 	app.secret_key = 'A0ZKkjfiaZS6w3ibFLISFr98j/3yX R~XHH!jmN]LWX/,?RTfg97adfNF(#ihbwg'# you should change this
-	# app.debug = True
+	app.debug = True
 	app.run(host='0.0.0.0',port=7000)
 
