@@ -21,10 +21,12 @@
 	</div>
 </form>
 
+
 <table class="u-full-width">
-	<thead><tr><th>Invoice #</th><th>Package</th><th>Purchase Date</th><th>Purchase Count</th><th>Purchase Cost</th><th>Status?</th></tr></thead>
+	<thead><tr><th>Invoice #</th><th>Package</th><th>Purchase Date</th><th>Count</th><th>Cost</th><th>Status</th><th>Add Email</th><th>Action</th></tr></thead>
 	<tbody>
 		{% for product in products %}
+		<form action="/add_email" method="post">
 		<tr class="{{ loop.cycle('odd', 'even')}}">
 			<td>{{product.GetInvoiceNumber()}}</td>
 			<td>{{product.GetPackageName()}}</td>
@@ -32,9 +34,15 @@
 			<td>{{product.GetPurchaseCount()}}</td>
 			<td>{{product.GetPurchaseCost()}}</td>
 			<td>{{product.GetStatusCode()}}</td>
+			<td><input type='email' name="email" class='full-height' value="{{product|find_purchased_item}}"></td>
+			<td><input type='submit' class='full-height' value='save'></td>
+			<input type="hidden" name="product_name" value="{{product.GetPackageName()}}">
+			<input type="hidden" name="invoice_numbers" value="{{product.GetInvoiceNumber()}}">
 		</tr>
+		</form>
 		{% endfor %}
 	</tbody>
 </table>
+
 
 {% endblock %}
