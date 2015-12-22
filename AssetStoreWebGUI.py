@@ -138,7 +138,7 @@ class myHandler(BaseHTTPRequestHandler):
         return html
     
     def GenInvoiceHtml(self, client, invoiceNumbers):
-        html = '<h2>Verify invoice</h2>Enter comma separated invoice numbers:'
+        html = '<h2>Verify invoice</h2>Enter comma separated invoice numbers or order numbers:'
         html += '<input type=\"text\" name=\"invoiceNumbers\" value=\"%s\" size=\"13\">'%invoiceNumbers
         html += '<input type=\"submit\" value=\"Verify\">'
         if len(invoiceNumbers) > 0:
