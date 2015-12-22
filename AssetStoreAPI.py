@@ -240,7 +240,7 @@ class PublisherInfo(object):
                     'rating':int(data['rating']['average']),
                     'ratingCount':int(data['rating']['count']),
                     'payoutCut':data['payout_cut'],
-                    # 'publisherUrl':data['long_url'],
+                    'publisherUrl':data['short_url'],
                     'publisherShortUrl':data['short_url'],
                     'siteUrl':data['url'],
                     'supportUrl':data['support_url'],
@@ -320,8 +320,11 @@ class InvoiceInfo (ParsedData):
         self.data = {
             'id':data[0],
             'packageName':data[1],
+            'purchase_count':int(data[2]),
+            'purchase_cost':float(data[3]),
             'date':self.ParseDate(data[4]),
-            'isRefunded':data[3] == 'Yes',
+            'isRefunded':data[5] == 'Refunded',
+            'status':data[5]
         }
     def GetInvoiceNumber(self):
         return self.data['id']
@@ -329,8 +332,14 @@ class InvoiceInfo (ParsedData):
         return self.data['packageName']
     def GetPurchaseDate(self):
         return self.data['date']
+    def GetPurchaseCost(self):
+        return self.data['purchase_cost']
+    def GetPurchaseCount(self):
+        return self.data['purchase_count']
     def IsRefunded(self):
         return self.data['isRefunded']
+    def GetStatusCode(self):
+        return self.data['status']
 class SalesPeriod(object):
     def __init__(self, data):
         self.year = int(data['value'][0:4])
