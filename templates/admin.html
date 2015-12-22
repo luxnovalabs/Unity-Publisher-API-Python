@@ -1,15 +1,31 @@
 {% extends "base.html" %}
 {% block body %}
-	{% include 'menu.html' %}
+{% include 'menu.html' %}
+
+<div class="row">
 	<h1>Verify invoice</h1>
-	<form action='/admin' method='post'>
-		Enter comma separated invoice numbers: <input type="text" name="invoice_numbers">
-		<input type="submit">
-	</form>
-	<table>
-		<tr><th>Invoice #</th><th>Package</th><th>Purchase Date</th><th>Purchase Count</th><th>Purchase Cost</th><th>Status?</th></tr>
+</div>
+
+<form action="/admin" method="post">
+	{% if error %}
+		<p>{{error}}</p>
+	{% endif %}
+	<div class="row">
+		<div class="u-full-width">
+			<label for="invoice_input">Enter comma separated invoice numbers</label>
+			<input class="u-full-width" type="text" placeholder="OR302253579" id="invoice_input" name="invoice_numbers">
+		</div>
+	</div>
+	<div class="row">
+		<input class="button-primary u-pull-right u-full-width" type="submit" value="Check dem numbers">
+	</div>
+</form>
+
+<table class="u-full-width">
+	<thead><tr><th>Invoice #</th><th>Package</th><th>Purchase Date</th><th>Purchase Count</th><th>Purchase Cost</th><th>Status?</th></tr></thead>
+	<tbody>
 		{% for product in products %}
-		<tr>
+		<tr class="{{ loop.cycle('odd', 'even')}}">
 			<td>{{product.GetInvoiceNumber()}}</td>
 			<td>{{product.GetPackageName()}}</td>
 			<td>{{product.GetPurchaseDate()|date_format}}</td>
@@ -18,5 +34,7 @@
 			<td>{{product.GetStatusCode()}}</td>
 		</tr>
 		{% endfor %}
-	</table>
+	</tbody>
+</table>
+
 {% endblock %}

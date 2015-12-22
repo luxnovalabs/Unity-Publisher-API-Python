@@ -1,12 +1,21 @@
 {% extends "base.html" %}
 
-	{% block body %}
-	  <form action="/" method="post">
-	  	{% if error %}
-	  		<p>{{error}}</p>
-	  	{% endif %}
-	  	Username: <input type="text" name="username">
-	  	Password: <input type="text" name="password">
-	  	<input type="submit">
-	  </form>
-  {% endblock %}
+{% block body %}
+<form action="/" method="post">
+	{% if error %}
+	<p>{{error}}</p>
+	{% endif %}
+	<div class="row">
+		<div class="six columns">
+			<label for="username_input">Your email</label>
+			<input class="u-full-width" type="email" placeholder="test@mailbox.com" id="username_input" name="username">
+		</div>
+		<div class="six columns">
+			<label for="password_input">Your password</label>
+			<input class="u-full-width" type="password" placeholder="password" id="password_input" name="password">
+		</div>
+	</div>
+
+	<input class="button-primary u-full-width" type="submit" value="Login">
+</form>
+{% endblock %}
